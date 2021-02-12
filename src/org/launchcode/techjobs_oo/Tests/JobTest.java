@@ -8,7 +8,7 @@ import org.launchcode.techjobs_oo.Employer;
 import org.launchcode.techjobs_oo.CoreCompetency;
 
 import static junit.framework.Assert.assertNotSame;
-import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.*;
 
 public class JobTest {
 
@@ -25,18 +25,27 @@ public class JobTest {
         Job TryIt = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
         //Should all return true
         assertEquals("Product tester", TryIt.getName());
-        assertEquals("ACME", TryIt.getEmployer());
-        assertEquals("Desert", TryIt.getLocation());
-        assertEquals("Quality control", TryIt.getPositionType());
-        assertEquals("Persistence", TryIt.getCoreCompetency());
+        assertEquals("ACME", TryIt.getEmployer().getValue());
+        assertEquals("Desert", TryIt.getLocation().getValue());
+        assertEquals("Quality control", TryIt.getPositionType().getValue());
+        assertEquals("Persistence", TryIt.getCoreCompetency().getValue());
     }
 
     @Test
     public void testJobsForEquality(){
         Job What = new Job("Slayer", new Employer("JC"), new Location("Underworld"), new PositionType("Killer"), new CoreCompetency("Sword Skills"));
         Job Who = new Job("Slayer", new Employer("JC"), new Location("Underworld"), new PositionType("Killer"), new CoreCompetency("Sword Skills"));
-        //Should return false
-        assertEquals(What.getId(), Who.getId());
+        //Should return true
+        assertFalse(What.equals(Who));
+    }
+
+    @Test
+    public void testToStringSpaces(){
+        Job TryIt = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        char firstChar = TryIt.toString().charAt(0);
+        char secondChar = TryIt.toString().charAt(TryIt.toString().length()-1);
+        //Should return true
+        assertTrue(firstChar == secondChar);
     }
 
 }
